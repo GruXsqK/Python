@@ -16,12 +16,20 @@ __author__ = 'Белинский Андрей Петрович'
 
 # Подсказка: воспользоваться методом .format()
 
-fruts = ['яблоко', 'банан', 'киви', 'арбуз']
+fruts = ['яблоко', 'банан', 'киви', 'арбуз', 'груша', 'апельсин', 'ананас']
 
+max_string = []
 i = 0
-while i<len(fruts):
-    print('{0:<1}{1:<1}{2:>7}'.format(i+1, '.', fruts[i]))
+
+while i < len(fruts):
+    if len(max_string) < len(fruts[i]):
+        max_string = fruts[i]
     i += 1
+
+for idx, value in enumerate(fruts, start=1):
+    item_string = '{}{:>}'.format(' '*(len(max_string) - len(value)), value)
+    print('{}. {}'.format(idx, item_string))
+
 print()
 
 # Задача-2:
@@ -31,10 +39,9 @@ print()
 random_list1 = [1, 2, 'a', 'b', 3, 'c'] * 4
 random_list2 = ['a', 'c', 2] * 4
 
-for value1 in random_list1:
-    for value2 in random_list2:
-        if value1 == value2:
-            random_list1.remove(value1)
+for itm in random_list2:
+    while itm in random_list1:
+        random_list1.remove(itm)
 
 print(random_list1)
 print()
@@ -48,9 +55,9 @@ int_list = [1, 5, 6, 8, 9, 15, 3, 10, 7, 11, 14]
 new_list = []
 
 for value in int_list:
-    if value % 2 == 0:
-        new_list.append(value / 4)
-    else:
+    if value % 2:
         new_list.append(value * 2)
+    else:
+        new_list.append(value / 4)
 
 print(new_list)
