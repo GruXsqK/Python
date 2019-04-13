@@ -23,11 +23,9 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 def lucky_ticket(ticket_number):
-    ticket = list(str(ticket_number))
+    ticket = str(ticket_number)
     if len(ticket) == 6:
-        sum1 = int(ticket[0]) + int(ticket[1]) + int(ticket[2])
-        sum2 = int(ticket[3]) + int(ticket[4]) + int(ticket[5])
-        if sum1 == sum2:
+        if sum(map(int, ticket[:3])) == sum(map(int, ticket[3:])):
             message = 'Билет № {} счастливый'.format(ticket_number)
         else:
             message = 'Билет № {} не счастливый'.format(ticket_number)
