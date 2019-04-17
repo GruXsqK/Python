@@ -24,16 +24,14 @@ print()
 # Для решения данной задачи нельзя использовать встроенную функцию и метод sort()
 
 def sort_to_max(origin_list):
-    stop_list = len(origin_list)
-    while stop_list > 0:
-        i = 1
-        while i < len(origin_list):
-            if origin_list[i] < origin_list[i - 1]:
-                origin_list[i], origin_list[i - 1] = origin_list[i - 1], origin_list[i]
-                stop_list += 1
-            else:
-                stop_list -= 1
-            i += 1
+    stop_list = len(origin_list) - 1
+    while True:
+        for i in range(stop_list):
+            if origin_list[i + 1] < origin_list[i]:
+                origin_list[i + 1], origin_list[i] = origin_list[i], origin_list[i + 1]
+        if stop_list <= 0:
+            break
+        stop_list -= 1
     return origin_list
 
 print(sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0]))
@@ -61,20 +59,18 @@ print()
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
 # Определить, будут ли они вершинами параллелограмма.
 
-import math
-
 def pgram(a, b, c, d):
 
     def paral(a, b, c, d):
-        ab = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
-        cb = math.sqrt((b[0] - c[0])**2 + (b[1] - c[1])**2)
-        cd = math.sqrt((d[0] - c[0])**2 + (d[1] - c[1])**2)
-        ad = math.sqrt((d[0] - a[0])**2 + (d[1] - a[1])**2)
+        ab = ((b[0] - a[0])**2 + (b[1] - a[1])**2)**0.5
+        cb = ((b[0] - c[0])**2 + (b[1] - c[1])**2)**0.5
+        cd = ((d[0] - c[0])**2 + (d[1] - c[1])**2)**0.5
+        ad = ((d[0] - a[0])**2 + (d[1] - a[1])**2)**0.5
 
         if ab == cd and cb == ad:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     def diag(a, b, c, d):
 
@@ -82,9 +78,9 @@ def pgram(a, b, c, d):
         h_o2 = ((b[0] + d[0])/2, (b[1] + d[1])/2)
 
         if h_o1 == h_o2:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     if paral(a, b, c, d) and diag(a, b, c, d):
         print('Вершины A1{}, A2{}, A3{}, A4{} являются параллелограммом'.format(a, b, c, d))

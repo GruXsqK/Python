@@ -8,7 +8,11 @@ __author__ = 'Белинский Андрей Петрович'
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 
 def my_round(number, ndigits):
-    x = round(number, ndigits)
+    number_round = ((number * 10**(ndigits + 1)) // 1) % 10
+    if number_round < 5:
+        x = (number * 10**ndigits // 1) / 10**ndigits
+    else:
+        x = (number * 10**ndigits // 1) / 10**ndigits + 10**-ndigits
     return x
 
 print(my_round(2.1234567, 5))
