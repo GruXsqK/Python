@@ -166,3 +166,45 @@ with open(path_payroll, 'w', encoding='UTF-8') as file_payroll:
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+def write_fruits(liter, fruit):
+    name_file = 'fruits_' + liter + '.txt'
+    path_fruits_liter = os.path.join('data', name_file)
+
+    with open(path_fruits_liter, 'a', encoding='UTF-8') as file_fruits_liter:
+        file_fruits_liter.write(fruit + '\n')
+
+    return None
+
+
+path_fruits = os.path.join('data', 'fruits.txt')
+fruits_list = []
+
+with open(path_fruits, 'r', encoding='UTF-8') as file_fruits:
+    for line in file_fruits:
+        if line == '\n':
+            pass
+        elif '\n' in line:
+            fruits_list.append(line[:-1])
+        else:
+            fruits_list.append(line)
+
+list_liter = list(map(chr, range(ord('А'), ord('Я')+1)))
+search_other = []
+
+for liter in list_liter:
+    i = 0
+    while i < len(fruits_list):
+        fruit = fruits_list[i]
+        if fruit[0] == liter:
+            write_fruits(liter, fruit)
+            search_other.append(fruit)
+        i += 1
+
+other_fruit = set(fruits_list) ^ set(search_other)
+path_fruits_other = os.path.join('data', 'fruit_other.txt')
+
+# без модуля re сюда так же попадут фрукты начинающиеся со спецсимволов
+with open(path_fruits_other, 'w', encoding='UTF-8') as file_other:
+    for elem in other_fruit:
+        file_other.write(elem + '\n')
