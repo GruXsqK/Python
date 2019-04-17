@@ -78,7 +78,10 @@ def compare_chess(list_chess):
     def compare_pair(list_1, list_2):
         cond_1 = list_1[0] != list_2[0]
         cond_2 = list_1[1] != list_2[1]
-        cond_3 = abs(list_1[0] - list_2[0]) / abs(list_1[1] - list_2[1])
+        if abs(list_1[1] - list_2[1]) and abs(list_1[0] - list_2[0]):
+            cond_3 = abs(list_1[0] - list_2[0]) / abs(list_1[1] - list_2[1])
+        else:
+            cond_3 = 0
 
         if cond_1 and cond_2 and cond_3 != 1:
             return True
@@ -105,6 +108,6 @@ def compare_chess(list_chess):
 
     return ans
 
-list_chess = [[1, 1], [3, 2], [5, 3], [7, 4], [2, 5], [4, 6], [6, 7], [8, 8]]
+list_chess = [[1, 7], [2, 4], [3, 2], [4, 8], [5, 6], [6, 1], [7, 3], [8, 5]]
 
 print(compare_chess(list_chess))
