@@ -19,14 +19,15 @@ import os
 
 
 class Workers:
-    def __init__(self, line_data):
-        self.line_data = line_data.split()
+    def __init__(self, name, surname):
+        self.line_data = self.worker_data(name, surname).split()
         self.name = self.line_data[0]
         self.surname = self.line_data[1]
         self.salary = int(self.line_data[2])
         self.position = self.line_data[3]
         self.norm = int(self.line_data[4])
         self.hours = int(self.line_data[5])
+        self.payroll = self.payroll()
 
     def payroll(self):
         if self.norm == self.hours:
@@ -38,21 +39,22 @@ class Workers:
 
         return payroll
 
+    @staticmethod
+    def worker_data(name, surname):
+        with open(os.path.join('data', 'workers'), 'r', encoding='UTF-8') as file_workers:
+            for line in file_workers:
+                tmp = line.split()
+                if name == tmp[0] and surname == tmp[1]:
+                    worker_str = line
+                    break
+        with open(os.path.join('data', 'hours_of'), 'r', encoding='UTF-8') as file_hours:
+            for line in file_hours:
+                tmp = line.split()
+                if name == tmp[0] and surname == tmp[1]:
+                    worker_full_data = worker_str + ' ' + tmp[2]
+                    break
+        return worker_full_data
 
-def worker_data(name, surname):
-    with open(os.path.join('data', 'workers'), 'r', encoding='UTF-8') as file_workers:
-        for line in file_workers:
-            tmp = line.split()
-            if name == tmp[0] and surname == tmp[1]:
-                worker_data = line
 
-    with open(os.path.join('data', 'hours_of'), 'r', encoding='UTF-8') as file_hours:
-        for line in file_hours:
-            tmp = line.split()
-            if name == tmp[0] and surname == tmp[1]:
-                worker_full_data = worker_data + ' ' + tmp[2]
-    return worker_full_data
-
-
-worker1 = Workers(worker_data('Петр', 'Дурин'))
-print('Заработная плата:', worker1.payroll())
+worker1 = Workers('Петр', 'Дурин')
+print('Заработная плата:', worker1.payroll)
